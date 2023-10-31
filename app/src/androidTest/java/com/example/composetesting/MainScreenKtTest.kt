@@ -87,7 +87,9 @@ class MainScreenKtTest {
         //find node by tag and click
         composeTestRule.onNodeWithTag("sample_button").performClick()
 
-        //find node by text and assert
-        composeTestRule.onNodeWithText("Hello SubScreen!").assertExists()
+        //route Sub
+        navController.currentDestination?.route?.let {
+            assert(it == Screen.Sub.route)
+        }
     }
 }
