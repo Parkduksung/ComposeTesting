@@ -16,11 +16,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 
 //cmd+shift+T => Test
 @Composable
-fun SampleScreen() {
+fun MainScreen(
+    navController: NavController
+) {
 
     var clickNum by remember { mutableStateOf(0) }
 
@@ -34,7 +37,11 @@ fun SampleScreen() {
 
         Button(
             onClick = {
-                clickNum++
+                if (clickNum > 10) {
+                    navController.navigate(Screen.Sub.route)
+                } else {
+                    clickNum++
+                }
             },
             modifier = Modifier
                 .testTag("sample_button")

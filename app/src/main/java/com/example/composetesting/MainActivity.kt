@@ -3,10 +3,9 @@ package com.example.composetesting
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.composetesting.ui.theme.ComposeTestingTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,14 +13,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTestingTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+
+                val navController = rememberNavController()
+
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.Main.route
                 ) {
-                    SampleScreen()
+                    composable(Screen.Main.route) {
+                        MainScreen(navController)
+                    }
+                    composable(Screen.Sub.route) {
+                        SubScreen(navController)
+                    }
                 }
             }
         }
     }
+}
+
+sealed class Screen(val route: String) {
+    object Main : Screen("main")
+    object Sub : Screen("sub")
 }
