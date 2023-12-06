@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ComposeTesting"
 include(":app")
+include(":jsontest")
